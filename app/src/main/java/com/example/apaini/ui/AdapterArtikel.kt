@@ -44,7 +44,9 @@ class AdapterArtikel() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         holder.itemView.description.text = item.description
         holder.itemView.setOnClickListener {
             if (mOnChangeItem!=null){
-                
+                val gson = Gson()
+                val string = gson.toJson(data[position])
+                mOnChangeItem?.onClickItem(string)
             }
         }
     }
