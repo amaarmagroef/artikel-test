@@ -14,4 +14,10 @@ class List(){
     var description : String = ""
     @SerializedName("urlToImage")
     var imageUrl : String = ""
+    @SerializedName("url")
+    var url : String = ""
+    @SerializedName("author")
+    var author : String = ""
+    @SerializedName("content")
+    var content : String = ""
 }

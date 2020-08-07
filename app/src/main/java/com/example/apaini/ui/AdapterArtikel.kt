@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.apaini.R
 import com.example.apaini.data.model.List
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_artikel.view.*
 
 class AdapterArtikel() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var data = mutableListOf<List>()
+    private var mOnChangeItem : OnChangeItem? = null
 
     fun update(list : MutableList<List>){
         data = list
@@ -40,6 +42,21 @@ class AdapterArtikel() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             .into(holder.itemView.image)
         holder.itemView.title.text = item.title
         holder.itemView.description.text = item.description
+        holder.itemView.setOnClickListener {
+            if (mOnChangeItem!=null){
+                val gson = Gson()
+                val string = gson.toJson(data[position])
+                mOnChangeItem?.onClickItem(string)
+            }
+        }
+    }
+
+    interface OnChangeItem {
+        fun onClickItem(data : String)
+    }
+
+    fun setOnChangeItem(listener : OnChangeItem){
+        mOnChangeItem = listener
     }
 
 }

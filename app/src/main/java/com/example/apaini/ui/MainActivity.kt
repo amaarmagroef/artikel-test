@@ -1,5 +1,6 @@
 package com.example.apaini.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -29,7 +30,13 @@ class MainActivity : AppCompatActivity() {
             isNestedScrollingEnabled = true
         }
 
-        refresh()
+        adapter.setOnChangeItem(object :AdapterArtikel.OnChangeItem{
+            override fun onClickItem(data: String) {
+                startActivity(Intent(this@MainActivity, DetailActivity::class.java).also {
+                    it.putExtra("data", data)
+                })
+            }
+        })
 
     }
 
@@ -72,5 +79,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        refresh()
     }
 }
